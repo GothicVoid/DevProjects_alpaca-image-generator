@@ -3,7 +3,9 @@
     <h1>ALPACA GENERATOR</h1>
     <main>
       <section class="main-content">
-        <div class="alpaca"></div>
+        <div class="alpaca">
+          <img v-for="(part, index) in alpaca" :key="index" :src="part.src" />
+        </div>
         <button class="btn-random">Random</button>
         <button class="btn-download">Download</button>
       </section>
@@ -16,8 +18,49 @@
 </template>
 
 <script>
+import {
+  BACKGROUNDS,
+  EARS,
+  LEG,
+  NECK,
+  NOSE,
+  MOUTH,
+  HAIR,
+  EYES,
+  ACCESSORIES,
+} from './scripts/constant/img-data';
+
 export default {
   name: 'App',
+  data() {
+    return {
+      config: [
+        { part: 'background', style: 0 },
+        { part: 'ears', style: 0 },
+        { part: 'leg', style: 0 },
+        { part: 'neck', style: 0 },
+        { part: 'mouth', style: 0 },
+        { part: 'hair', style: 0 },
+        { part: 'eyes', style: 0 },
+        { part: 'accessory', style: 0 },
+      ],
+    };
+  },
+  computed: {
+    alpaca() {
+      return [
+        BACKGROUNDS[this.config[0].style],
+        EARS[this.config[1].style],
+        LEG[this.config[2].style],
+        NECK[this.config[3].style],
+        NOSE[0],
+        MOUTH[this.config[4].style],
+        HAIR[this.config[5].style],
+        EYES[this.config[6].style],
+        ACCESSORIES[this.config[7].style],
+      ];
+    },
+  },
 };
 </script>
 
@@ -47,10 +90,19 @@ section {
 }
 
 .alpaca {
+  position: relative;
   grid-column: 1 / span 2;
   width: 7.2rem;
   height: 7.2rem;
   margin-bottom: 0.6rem;
+}
+
+.alpaca img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7.2rem;
+  height: 7.2rem;
 }
 
 button {

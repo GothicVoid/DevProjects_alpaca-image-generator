@@ -4,6 +4,7 @@ const { WebpackPluginServe } = require('webpack-plugin-serve');
 const { MiniHtmlWebpackPlugin } = require('mini-html-webpack-plugin');
 const { GitRevisionPlugin } = require('git-revision-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const CopyPlugin = require('copy-webpack-plugin');
 /* eslint-enable import/no-extraneous-dependencies */
 
 exports.devServer = () => ({
@@ -58,4 +59,12 @@ exports.loadVue = () => ({
     ],
   },
   plugins: [new VueLoaderPlugin()],
+});
+
+exports.copy = (path) => ({
+  plugins: [
+    new CopyPlugin({
+      patterns: [{ from: path, to: path }],
+    }),
+  ],
 });

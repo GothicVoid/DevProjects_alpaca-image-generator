@@ -3,14 +3,12 @@ const { merge } = require('webpack-merge');
 const parts = require('./webpack.parts');
 
 const commonConfig = merge([
-  { entry: ['./src'] },
-  parts.page({
-    title: 'Alpaca Image Generator',
-    body: '<div id="app"></div>',
-  }),
+  { entry: ['./src'], target: 'web' },
+  parts.page({ title: 'Alpaca Image Generator', body: '<div id="app"></div>' }),
   parts.clean(),
   parts.loadCSS(),
   parts.loadVue(),
+  parts.copy('static'),
 ]);
 
 const productionConfig = merge([parts.attachRevision()]);
